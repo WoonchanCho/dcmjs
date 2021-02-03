@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><div align="center">
+  <h1>dcmjs</h1>
+  <p>JavaScript implementation of DICOM manipulation. This code is an outgrowth of several efforts to implement web applications for medical imaging.</p>
+</div>
+<hr />
+<p><a href="https://circleci.com/gh/dcmjs-org/dcmjs"><img src="https://circleci.com/gh/dcmjs-org/dcmjs.svg?style=svg" alt="CircleCI"></a></p>
+<p><strong>Note: this code is a work-in-progress and should not be used for production or clinical purposes</strong></p>
+<p>See <a href="https://dcmjs.netlify.com/">live examples here</a></p>
+<h1>Goals</h1>
+<p><em>Overall the code should:</em></p>
+<ul>
+<li>Support reading and writing of correct DICOM objects in JavaScript for browser or node environments</li>
+<li>Provide a programmer-friendly JavaScript environment for using and manipulating DICOM objects</li>
+<li>Include a set of useful demos to encourage correct usage of dcmjs and modern DICOM objects</li>
+<li>Encourage correct referencing of instances and composite context when creating derived objects</li>
+<li>Current target is modern web browsers, but a set of node-based utilities also makes sense someday</li>
+</ul>
+<p><em>Architectural goals include:</em></p>
+<ul>
+<li>Use modern JavaScript programming methods (currently ES6) but avoid heavy frameworks</li>
+<li>Leverage modern DICOM standards but avoid legacy parts</li>
+<li>Support straightforward integration with multiple JavaScript deployment targets (browser, node, etc) and frameworks.</li>
+</ul>
+<p><em>Parts of DICOM that dcmjs will focus on:</em></p>
+<ul>
+<li>Enhanced Multiframe Images</li>
+<li>Segmentation Objects</li>
+<li>Parametric Maps</li>
+<li>Structured Reports</li>
+</ul>
+<p><em>Parts of DICOM that dcmjs <em>will not</em> focus on:</em></p>
+<ul>
+<li>DIMSE (legacy networking like C-FIND, C-MOVE, etc)</li>
+<li>Physical Media (optical disks)</li>
+</ul>
+<h1>Usage</h1>
+<h2>In Browser</h2>
+<pre class="prettyprint source lang-html"><code>&lt;script type=&quot;text/javascript&quot; src=&quot;https://unpkg.com/dcmjs&quot;>&lt;/script>
+</code></pre>
+<h2>In Node</h2>
+<pre class="prettyprint source lang-None"><code>// To install latest _stable_ release
+npm install --save dcmjs
+
+// To install latest code merged to master
+npm install --save dcmjs@dev
+</code></pre>
+<h2>For Developers</h2>
+<pre class="prettyprint source lang-None"><code>git clone https://github.com/dcmjs-org/dcmjs
+cd dcmjs
+npm install
+npm run build
+npm test
+</code></pre>
+<h2>For Maintainers</h2>
+<p>Publish new version automatically from commit:</p>
+<p>Use the following &quot;Commit Message Format&quot; when drafting commit messages. If you're merging a 3rd party's PR, you have the ability to override the supplied commit messages by doing a &quot;Squash &amp; Merge&quot;:</p>
+<ul>
+<li><a href="https://semantic-release.gitbook.io/semantic-release/#commit-message-format">Commit Message Format</a></li>
+</ul>
+<p>Note: Be wary of <code>BREAKING_CHANGE</code> in commit message descriptions, as this can force a major version bump.</p>
+<h2>Community Participation</h2>
+<p>Use this repository's issues page to report any bugs. Please follow <a href="http://sscce.org/">SSCCE</a> guidelines when submitting issues.</p>
+<p>Use github pull requests to make contributions.</p>
+<h1>Status</h1>
+<p>Currently dcmjs is an early-stage development experiment, but already has valuable functionality.</p>
+<h2>Implemented</h2>
+<ul>
+<li>Bidirectional conversion to and from part 10 binary DICOM and DICOM standard JSON encoding (as in <a href="http://dicomweb.org">DICOMweb</a>)</li>
+<li>Bidirectional convertion to and from DICOM standard JSON and a programmer-friendly high-level version (high-level form is called the &quot;naturalized&quot; form in the code).</li>
+</ul>
+<h2>In development</h2>
+<ul>
+<li>Creation of (correct) enhanced multiframe DICOM objects from legacy image objects</li>
+<li>Creation of (correct) derived DICOM objects such as Segmentations and Structured Reports</li>
+</ul>
+<h2>TODO</h2>
+<ul>
+<li>Create a test suite of input and output DICOM objects</li>
+<li>Test interoperability with other DICOM implementations</li>
+<li>Add documentation</li>
+</ul>
+<h1>History</h1>
+<ul>
+<li>2014
+<ul>
+<li><a href="dcmtk.org">DCMTK</a> cross compiled to javascript at <a href="http://www.commontk.org/index.php/CTK-Hackfest-May-2014">CTK Hackfest</a>. While this was useful and powerful, it was heavyweight for typical web usage.</li>
+</ul>
+</li>
+<li>2016
+<ul>
+<li>A <a href="http://qiicr.org/web/outreach/Medical-Imaging-Web-Apps/">Medical Imaging Web Appliction meeting at Stanford</a> and <a href="http://qiicr.org/web/outreach/MIWS-hackfest/">follow-on hackfest in Boston</a> helped elaborate the needs for manipulating DICOM in pure Javascript.</li>
+<li>Based on <a href="https://github.com/OHIF/dicom-dimse">DICOM Part 10 read/write code</a> initiated by Weiwei Wu of <a href="http://ohif.org">OHIF</a>, Steve Pieper <a href="https://github.com/pieper/sites/tree/gh-pages/dcmio">developed further features</a> and <a href="https://github.com/pieper/sites/tree/gh-pages/DICOMzero">examples of creating multiframe and segmentation objects</a> discussed with the community at RSNA</li>
+</ul>
+</li>
+<li>2017
+<ul>
+<li>At <a href="https://na-mic.org/wiki/Project_Week_25">NA-MIC Project Week 25</a> Erik Ziegler and Steve Pieper <a href="https://na-mic.org/wiki/Project_Week_25/DICOM_Segmentation_Support_for_Cornerstone_and_OHIF_Viewer">worked</a>
+with the community to define some example use cases to mix the pure JavaScript DICOM code with Cornerstone and <a href="https://github.com/chafey/cornerstoneTools">CornerstoneTools</a>.</li>
+</ul>
+</li>
+<li>2018-2020
+<ul>
+<li>Work continues to develop SR and SEG support to <a href="http://ohif.org">OHIFViewer</a> allow interoperability with <a href="https://legacy.gitbook.com/book/qiicr/dicom4qi/details">DICOM4QI</a></li>
+</ul>
+</li>
+</ul>
+<h1>Support</h1>
+<p>The developers gratefully acknowledge their reseach support:</p>
+<ul>
+<li>Open Health Imaging Foundation (<a href="http://ohif.org">OHIF</a>)</li>
+<li>Quantitative Image Informatics for Cancer Research (<a href="http://qiicr.org">QIICR</a>)</li>
+<li><a href="http://radiomics.io">Radiomics</a></li>
+<li>The <a href="http://nac.spl.harvard.edu">Neuroimage Analysis Center</a></li>
+<li>The <a href="http://ncigt.org">National Center for Image Guided Therapy</a></li>
+<li>The <a href="https://imagingdatacommons.github.io/">NCI Imaging Data Commons</a> NCI Imaging Data Commons: contract number 19X037Q from Leidos Biomedical Research under Task Order HHSN26100071 from NCI</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BufferStream.html">BufferStream</a></li><li><a href="ReadBufferStream.html">ReadBufferStream</a></li><li><a href="WriteBufferStream.html">WriteBufferStream</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addSegment">addSegment</a></li><li><a href="global.html#addSegmentFromLabelmap">addSegmentFromLabelmap</a></li><li><a href="global.html#bitPackPixelData">bitPackPixelData</a></li><li><a href="global.html#generateSegments">generateSegments</a></li><li><a href="global.html#setNumberOfFrames">setNumberOfFrames</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Feb 03 2021 00:55:10 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

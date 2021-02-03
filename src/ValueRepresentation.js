@@ -404,7 +404,7 @@ class BinaryRepresentation extends ValueRepresentation {
     }
 }
 
-class ApplicationEntity extends StringRepresentation {
+export class ApplicationEntity extends StringRepresentation {
     constructor() {
         super("AE");
         this.maxLength = 16;
@@ -417,7 +417,7 @@ class ApplicationEntity extends StringRepresentation {
     }
 }
 
-class CodeString extends StringRepresentation {
+export class CodeString extends StringRepresentation {
     constructor() {
         super("CS");
         this.maxLength = 16;
@@ -430,7 +430,7 @@ class CodeString extends StringRepresentation {
     }
 }
 
-class AgeString extends StringRepresentation {
+export class AgeString extends StringRepresentation {
     constructor() {
         super("AS");
         this.maxLength = 4;
@@ -440,7 +440,7 @@ class AgeString extends StringRepresentation {
     }
 }
 
-class AttributeTag extends ValueRepresentation {
+export class AttributeTag extends ValueRepresentation {
     constructor() {
         super("AT");
         this.maxLength = 4;
@@ -464,7 +464,7 @@ class AttributeTag extends ValueRepresentation {
     }
 }
 
-class DateValue extends StringRepresentation {
+export class DateValue extends StringRepresentation {
     constructor(value) {
         super("DA", value);
         this.maxLength = 18;
@@ -474,7 +474,7 @@ class DateValue extends StringRepresentation {
     }
 }
 
-class DecimalString extends StringRepresentation {
+export class DecimalString extends StringRepresentation {
     constructor() {
         super("DS");
         this.maxLength = 16;
@@ -503,7 +503,7 @@ class DecimalString extends StringRepresentation {
     }
 }
 
-class DateTime extends StringRepresentation {
+export class DateTime extends StringRepresentation {
     constructor() {
         super("DT");
         this.maxLength = 26;
@@ -511,7 +511,7 @@ class DateTime extends StringRepresentation {
     }
 }
 
-class FloatingPointSingle extends ValueRepresentation {
+export class FloatingPointSingle extends ValueRepresentation {
     constructor() {
         super("FL");
         this.maxLength = 4;
@@ -533,7 +533,7 @@ class FloatingPointSingle extends ValueRepresentation {
     }
 }
 
-class FloatingPointDouble extends ValueRepresentation {
+export class FloatingPointDouble extends ValueRepresentation {
     constructor() {
         super("FD");
         this.maxLength = 8;
@@ -555,7 +555,7 @@ class FloatingPointDouble extends ValueRepresentation {
     }
 }
 
-class IntegerString extends StringRepresentation {
+export class IntegerString extends StringRepresentation {
     constructor() {
         super("IS");
         this.maxLength = 12;
@@ -585,7 +585,7 @@ class IntegerString extends StringRepresentation {
     }
 }
 
-class LongString extends StringRepresentation {
+export class LongString extends StringRepresentation {
     constructor() {
         super("LO");
         this.maxCharLength = 64;
@@ -598,7 +598,7 @@ class LongString extends StringRepresentation {
     }
 }
 
-class LongText extends StringRepresentation {
+export class LongText extends StringRepresentation {
     constructor() {
         super("LT");
         this.maxCharLength = 10240;
@@ -611,7 +611,7 @@ class LongText extends StringRepresentation {
     }
 }
 
-class PersonName extends StringRepresentation {
+export class PersonName extends StringRepresentation {
     constructor() {
         super("PN");
         this.maxLength = null;
@@ -646,7 +646,7 @@ class PersonName extends StringRepresentation {
     }
 }
 
-class ShortString extends StringRepresentation {
+export class ShortString extends StringRepresentation {
     constructor() {
         super("SH");
         this.maxCharLength = 16;
@@ -659,7 +659,7 @@ class ShortString extends StringRepresentation {
     }
 }
 
-class SignedLong extends ValueRepresentation {
+export class SignedLong extends ValueRepresentation {
     constructor() {
         super("SL");
         this.maxLength = 4;
@@ -681,7 +681,7 @@ class SignedLong extends ValueRepresentation {
     }
 }
 
-class SequenceOfItems extends ValueRepresentation {
+export class SequenceOfItems extends ValueRepresentation {
     constructor() {
         super("SQ");
         this.maxLength = null;
@@ -810,7 +810,7 @@ class SequenceOfItems extends ValueRepresentation {
     }
 }
 
-class SignedShort extends ValueRepresentation {
+export class SignedShort extends ValueRepresentation {
     constructor() {
         super("SS");
         this.maxLength = 2;
@@ -833,7 +833,7 @@ class SignedShort extends ValueRepresentation {
     }
 }
 
-class ShortText extends StringRepresentation {
+export class ShortText extends StringRepresentation {
     constructor() {
         super("ST");
         this.maxCharLength = 1024;
@@ -846,7 +846,7 @@ class ShortText extends StringRepresentation {
     }
 }
 
-class TimeValue extends StringRepresentation {
+export class TimeValue extends StringRepresentation {
     constructor() {
         super("TM");
         this.maxLength = 14;
@@ -858,7 +858,7 @@ class TimeValue extends StringRepresentation {
     }
 }
 
-class UnlimitedCharacters extends StringRepresentation {
+export class UnlimitedCharacters extends StringRepresentation {
     constructor() {
         super("UC");
         this.maxLength = null;
@@ -871,7 +871,7 @@ class UnlimitedCharacters extends StringRepresentation {
     }
 }
 
-class UnlimitedText extends StringRepresentation {
+export class UnlimitedText extends StringRepresentation {
     constructor() {
         super("UT");
         this.maxLength = null;
@@ -884,7 +884,7 @@ class UnlimitedText extends StringRepresentation {
     }
 }
 
-class UnsignedShort extends ValueRepresentation {
+export class UnsignedShort extends ValueRepresentation {
     constructor() {
         super("US");
         this.maxLength = 2;
@@ -906,7 +906,7 @@ class UnsignedShort extends ValueRepresentation {
     }
 }
 
-class UnsignedLong extends ValueRepresentation {
+export class UnsignedLong extends ValueRepresentation {
     constructor() {
         super("UL");
         this.maxLength = 4;
@@ -928,7 +928,7 @@ class UnsignedLong extends ValueRepresentation {
     }
 }
 
-class UniqueIdentifier extends StringRepresentation {
+export class UniqueIdentifier extends StringRepresentation {
     constructor() {
         super("UI");
         this.maxLength = 64;
@@ -943,7 +943,7 @@ class UniqueIdentifier extends StringRepresentation {
     }
 }
 
-class UniversalResource extends StringRepresentation {
+export class UniversalResource extends StringRepresentation {
     constructor() {
         super("UR");
         this.maxLength = null;
@@ -955,7 +955,7 @@ class UniversalResource extends StringRepresentation {
     }
 }
 
-class UnknownValue extends StringRepresentation {
+export class UnknownValue extends StringRepresentation {
     constructor() {
         super("UN");
         this.maxLength = null;
@@ -968,7 +968,7 @@ class UnknownValue extends StringRepresentation {
     }
 }
 
-class OtherWordString extends BinaryRepresentation {
+export class OtherWordString extends BinaryRepresentation {
     constructor() {
         super("OW");
         this.maxLength = null;
@@ -977,7 +977,7 @@ class OtherWordString extends BinaryRepresentation {
     }
 }
 
-class OtherByteString extends BinaryRepresentation {
+export class OtherByteString extends BinaryRepresentation {
     constructor() {
         super("OB");
         this.maxLength = null;
@@ -986,7 +986,7 @@ class OtherByteString extends BinaryRepresentation {
     }
 }
 
-class OtherDoubleString extends BinaryRepresentation {
+export class OtherDoubleString extends BinaryRepresentation {
     constructor() {
         super("OD");
         this.maxLength = null;
@@ -995,7 +995,7 @@ class OtherDoubleString extends BinaryRepresentation {
     }
 }
 
-class OtherFloatString extends BinaryRepresentation {
+export class OtherFloatString extends BinaryRepresentation {
     constructor() {
         super("OF");
         this.maxLength = null;
