@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "node test/tests.js",
-    "build": "rollup -c",
+    "build": "npm run build:src && npm run build:type && npm run build:doc",
+    "build:src": "rollup -c",
     "build:type": "tsc",
     "build:doc": "jsdoc -c jsdoc.conf.js -r README.md",
     "build:examples": "npm run build && npx cpx 'build/**/*.{js,map}' examples/js",

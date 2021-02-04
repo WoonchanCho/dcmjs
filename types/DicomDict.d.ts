@@ -3,5 +3,5 @@ export class DicomDict {
     meta: any;
     dict: {};
     upsertTag(tag: any, vr: any, values: any): void;
-    write(writeOptions?: {}): any;
+    write(writeOptions?: {}): ArrayBuffer;
 }
