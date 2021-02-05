@@ -1,3 +1,6 @@
+/**
+ * Class representing Derived Dataset
+ */
 export default class DerivedDataset {
     static copyDataset(dataset: any): any;
     constructor(datasets: any, options?: {});

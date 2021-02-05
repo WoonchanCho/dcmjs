@@ -4,18 +4,40 @@ import { ReadBufferStream } from "./BufferStream.js";
 import { WriteBufferStream } from "./BufferStream.js";
 import { Tag } from "./Tag.js";
 
+/**
+ * Pad a string on left with padding Value
+ * @param {string} paddingValue - Padding format string
+ * @param {string} string - Original string
+ * @returns {string} Left-padded string
+ */
 function paddingLeft(paddingValue, string) {
     return String(paddingValue + string).slice(-paddingValue.length);
 }
 
+/**
+ * Trim spaces on the right side of the string
+ * @param {string} str - Original string
+ * @returns {string} Trimmed string
+ */
 function rtrim(str) {
     return str.replace(/\s*$/g, "");
 }
 
+/**
+ * Create a Tag object using a group and element number
+ * @param {number} group - Group Number
+ * @param {number} element - Element number
+ * @returns {Tag} Tag object
+ */
 function tagFromNumbers(group, element) {
     return new Tag(((group << 16) | element) >>> 0);
 }
 
+/**
+ * Read a group and element number from buffer and return a Tag object
+ * @param {ReadBufferStream} stream - buffer
+ * @returns {Tag} Tag object
+ */
 function readTag(stream) {
     var group = stream.readUint16(),
         element = stream.readUint16();
@@ -28,20 +50,38 @@ var binaryVRs = ["FL", "FD", "SL", "SS", "UL", "US", "AT"],
     explicitVRs = ["OB", "OW", "OF", "SQ", "UC", "UR", "UT", "UN"],
     singleVRs = ["SQ", "OF", "OW", "OB", "UN"];
 
+/**
+ * Class representing Value Representations
+ */
 class ValueRepresentation {
+    /**
+     * Create a Value Representation
+     */
     constructor(type) {
         this.type = type;
         this.multi = false;
     }
 
+    /**
+     * Check if the VR is binary-type
+     * @returns {boolean} True if the VR is one of binary VRs
+     */
     isBinary() {
         return binaryVRs.indexOf(this.type) != -1;
     }
 
+    /**
+     * Check if the VR can have multiple values
+     * @returns {boolean} True if the VR can have multiple values
+     */
     allowMultiple() {
         return !this.isBinary() && singleVRs.indexOf(this.type) == -1;
     }
 
+    /**
+     * Check if the VR is explict VR type
+     * @return {boolean} True if the VR is one of explicit VRs
+     */
     isExplicit() {
         return explicitVRs.indexOf(this.type) != -1;
     }
@@ -171,6 +211,11 @@ class ValueRepresentation {
         return written;
     }
 
+    /**
+     * Create a Value Representation object matched with the 2-byte value type string incoming
+     * @param {string} type - 2-byte VR type string (e.g., SH)
+     * @returns {ValueRepresentation} a object of a ValueRepresentation decendant
+     */
     static createByTypeString(type) {
         var vr = null;
         if (type == "AE") vr = new ApplicationEntity();
@@ -220,6 +265,10 @@ class ValueRepresentation {
     }
 }
 
+/**
+ * Class representing string-type Value Representations
+ * @extends ValueRepresentation
+ */
 class StringRepresentation extends ValueRepresentation {
     constructor(type) {
         super(type);
@@ -236,6 +285,10 @@ class StringRepresentation extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing binary-type Value Representations
+ * @extends ValueRepresentation
+ */
 class BinaryRepresentation extends ValueRepresentation {
     constructor(type) {
         super(type);
@@ -404,7 +457,14 @@ class BinaryRepresentation extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the AE Value Representation
+ * @extends StringRepresentation
+ */
 export class ApplicationEntity extends StringRepresentation {
+    /**
+     * Create an ApplicationEntity VR
+     */
     constructor() {
         super("AE");
         this.maxLength = 16;
@@ -417,7 +477,14 @@ export class ApplicationEntity extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the CS Value Representation
+ * @extends StringRepresentation
+ */
 export class CodeString extends StringRepresentation {
+    /**
+     * Create an CodeString VR
+     */
     constructor() {
         super("CS");
         this.maxLength = 16;
@@ -430,7 +497,14 @@ export class CodeString extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the AS Value Representation
+ * @extends StringRepresentation
+ */
 export class AgeString extends StringRepresentation {
+    /**
+     * Create an AgeString VR
+     */
     constructor() {
         super("AS");
         this.maxLength = 4;
@@ -440,6 +514,10 @@ export class AgeString extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the AT Value Representation
+ * @extends ValueRepresentation
+ */
 export class AttributeTag extends ValueRepresentation {
     constructor() {
         super("AT");
@@ -464,6 +542,10 @@ export class AttributeTag extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the DA Value Representation
+ * @extends StringRepresentation
+ */
 export class DateValue extends StringRepresentation {
     constructor(value) {
         super("DA", value);
@@ -474,6 +556,10 @@ export class DateValue extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the DS Value Representation
+ * @extends StringRepresentation
+ */
 export class DecimalString extends StringRepresentation {
     constructor() {
         super("DS");
@@ -503,6 +589,10 @@ export class DecimalString extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the DT Value Representation
+ * @extends StringRepresentation
+ */
 export class DateTime extends StringRepresentation {
     constructor() {
         super("DT");
@@ -511,6 +601,10 @@ export class DateTime extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the FL Value Representation
+ * @extends ValueRepresentation
+ */
 export class FloatingPointSingle extends ValueRepresentation {
     constructor() {
         super("FL");
@@ -533,6 +627,10 @@ export class FloatingPointSingle extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the FD Value Representation
+ * @extends ValueRepresentation
+ */
 export class FloatingPointDouble extends ValueRepresentation {
     constructor() {
         super("FD");
@@ -555,6 +653,10 @@ export class FloatingPointDouble extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the IS Value Representation
+ * @extends StringRepresentation
+ */
 export class IntegerString extends StringRepresentation {
     constructor() {
         super("IS");
@@ -585,6 +687,10 @@ export class IntegerString extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the LO Value Representation
+ * @extends StringRepresentation
+ */
 export class LongString extends StringRepresentation {
     constructor() {
         super("LO");
@@ -598,6 +704,10 @@ export class LongString extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the LT Value Representation
+ * @extends StringRepresentation
+ */
 export class LongText extends StringRepresentation {
     constructor() {
         super("LT");
@@ -611,6 +721,10 @@ export class LongText extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the PN Value Representation
+ * @extends StringRepresentation
+ */
 export class PersonName extends StringRepresentation {
     constructor() {
         super("PN");
@@ -646,6 +760,10 @@ export class PersonName extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the SH Value Representation
+ * @extends StringRepresentation
+ */
 export class ShortString extends StringRepresentation {
     constructor() {
         super("SH");
@@ -659,6 +777,10 @@ export class ShortString extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the SL Value Representation
+ * @extends ValueRepresentation
+ */
 export class SignedLong extends ValueRepresentation {
     constructor() {
         super("SL");
@@ -681,6 +803,10 @@ export class SignedLong extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the SQ Value Representation
+ * @extends ValueRepresentation
+ */
 export class SequenceOfItems extends ValueRepresentation {
     constructor() {
         super("SQ");
@@ -810,6 +936,10 @@ export class SequenceOfItems extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the SS Value Representation
+ * @extends ValueRepresentation
+ */
 export class SignedShort extends ValueRepresentation {
     constructor() {
         super("SS");
@@ -833,6 +963,10 @@ export class SignedShort extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the ST Value Representation
+ * @extends StringRepresentation
+ */
 export class ShortText extends StringRepresentation {
     constructor() {
         super("ST");
@@ -846,6 +980,10 @@ export class ShortText extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the TM Value Representation
+ * @extends StringRepresentation
+ */
 export class TimeValue extends StringRepresentation {
     constructor() {
         super("TM");
@@ -858,6 +996,10 @@ export class TimeValue extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the UC Value Representation
+ * @extends StringRepresentation
+ */
 export class UnlimitedCharacters extends StringRepresentation {
     constructor() {
         super("UC");
@@ -871,6 +1013,10 @@ export class UnlimitedCharacters extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the UT Value Representation
+ * @extends StringRepresentation
+ */
 export class UnlimitedText extends StringRepresentation {
     constructor() {
         super("UT");
@@ -884,6 +1030,10 @@ export class UnlimitedText extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the US Value Representation
+ * @extends ValueRepresentation
+ */
 export class UnsignedShort extends ValueRepresentation {
     constructor() {
         super("US");
@@ -906,6 +1056,10 @@ export class UnsignedShort extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the UL Value Representation
+ * @extends ValueRepresentation
+ */
 export class UnsignedLong extends ValueRepresentation {
     constructor() {
         super("UL");
@@ -928,6 +1082,10 @@ export class UnsignedLong extends ValueRepresentation {
     }
 }
 
+/**
+ * Class representing the UI Value Representation
+ * @extends StringRepresentation
+ */
 export class UniqueIdentifier extends StringRepresentation {
     constructor() {
         super("UI");
@@ -943,6 +1101,10 @@ export class UniqueIdentifier extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the UR Value Representation
+ * @extends StringRepresentation
+ */
 export class UniversalResource extends StringRepresentation {
     constructor() {
         super("UR");
@@ -955,6 +1117,10 @@ export class UniversalResource extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the UN Value Representation
+ * @extends StringRepresentation
+ */
 export class UnknownValue extends StringRepresentation {
     constructor() {
         super("UN");
@@ -968,6 +1134,10 @@ export class UnknownValue extends StringRepresentation {
     }
 }
 
+/**
+ * Class representing the OW Value Representation
+ * @extends BinaryRepresentation
+ */
 export class OtherWordString extends BinaryRepresentation {
     constructor() {
         super("OW");
@@ -977,6 +1147,10 @@ export class OtherWordString extends BinaryRepresentation {
     }
 }
 
+/**
+ * Class representing the OW Value Representation
+ * @extends BinaryRepresentation
+ */
 export class OtherByteString extends BinaryRepresentation {
     constructor() {
         super("OB");
@@ -986,6 +1160,10 @@ export class OtherByteString extends BinaryRepresentation {
     }
 }
 
+/**
+ * Class representing the OD Value Representation
+ * @extends BinaryRepresentation
+ */
 export class OtherDoubleString extends BinaryRepresentation {
     constructor() {
         super("OD");
@@ -995,6 +1173,10 @@ export class OtherDoubleString extends BinaryRepresentation {
     }
 }
 
+/**
+ * Class representing the OF Value Representation
+ * @extends BinaryRepresentation
+ */
 export class OtherFloatString extends BinaryRepresentation {
     constructor() {
         super("OF");

@@ -1,3 +1,15 @@
+/**
+ * @typedef {Object} DictionaryItem
+ * @property {string} tag - Formated tag string, e.g, (0008,0008)
+ * @property {string} vr - 2-byte VR type string, e.g, SH
+ * @property {string} name - Tag name
+ * @property {string} vm - Value multiplicity
+ * @property {string} version
+ */
+/**
+ * @constant {Object.<string, DictionaryItem>} dictionary - Tag Dictionary
+ * @default
+ */
 const dictionary = {
     "(0000,0000)": {
         tag: "(0000,0000)",

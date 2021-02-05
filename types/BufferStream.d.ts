@@ -5,10 +5,10 @@
 export class ReadBufferStream extends BufferStream {
     /**
      * Create a ReadBufferStream
-     * @param {*} buffer
-     * @param {*} littleEndian
+     * @param {BufferStream} buffer
+     * @param {string} littleEndian
      */
-    constructor(buffer: any, littleEndian: any);
+    constructor(buffer: BufferStream, littleEndian: string);
 }
 /**
  * Class representing a BufferStream for writing
@@ -17,10 +17,10 @@ export class ReadBufferStream extends BufferStream {
 export class WriteBufferStream extends BufferStream {
     /**
      * Create a ReadBufferStream
-     * @param {*} buffer
-     * @param {*} littleEndian
+     * @param {BufferStream} buffer
+     * @param {string} littleEndian
      */
-    constructor(buffer: any, littleEndian: any);
+    constructor(buffer: BufferStream, littleEndian: string);
 }
 /**
  * Class representing a BufferStream

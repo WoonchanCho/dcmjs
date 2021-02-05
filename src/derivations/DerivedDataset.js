@@ -1,5 +1,8 @@
 import { DicomMetaDictionary } from "../DicomMetaDictionary.js";
 
+/**
+ * Class representing Derived Dataset
+ */
 export default class DerivedDataset {
     constructor(datasets, options = {}) {
         this.options = JSON.parse(JSON.stringify(options));

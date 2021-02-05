@@ -29,7 +29,16 @@ const encapsulatedSyntaxes = [
     "1.2.840.10008.1.2.4.103"
 ];
 
+/**
+ * Class representing Dicom Message (Only contains static methods)
+ */
 class DicomMessage {
+    /**
+     *
+     * @param {ReadBufferStream} bufferStream
+     * @param {*} syntax
+     * @param {*} ignoreErrors
+     */
     static read(bufferStream, syntax, ignoreErrors) {
         var dict = {};
         try {
@@ -122,6 +131,19 @@ class DicomMessage {
         return written;
     }
 
+    /**
+     * @typedef TagInfo
+     * @property {Tag} tag - Tag object
+     * @property {ValueRepresentation} vr - VR object
+     * @property {any[]} values - An array of values
+     */
+
+    /**
+     * Read a tag from buffer
+     * @param {ReadBufferStream} stream - Buffer
+     * @param {string} syntax - DICOM transfer syntax
+     * @returns {TagInfo} Tag info
+     */
     static readTag(stream, syntax) {
         var implicit = syntax == IMPLICIT_LITTLE_ENDIAN ? true : false,
             isLittleEndian =

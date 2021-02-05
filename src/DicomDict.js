@@ -3,6 +3,9 @@ import { DicomMessage } from "./DicomMessage";
 
 const EXPLICIT_LITTLE_ENDIAN = "1.2.840.10008.1.2.1";
 
+/**
+ * Class representing a DICOM dictionary that contains DICOM JSON format oobject
+ */
 class DicomDict {
     constructor(meta) {
         this.meta = meta;

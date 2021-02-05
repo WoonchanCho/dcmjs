@@ -480,8 +480,8 @@ class BufferStream {
 class ReadBufferStream extends BufferStream {
     /**
      * Create a ReadBufferStream
-     * @param {*} buffer
-     * @param {*} littleEndian
+     * @param {BufferStream} buffer
+     * @param {string} littleEndian
      */
     constructor(buffer, littleEndian) {
         super(buffer, littleEndian);
@@ -496,8 +496,8 @@ class ReadBufferStream extends BufferStream {
 class WriteBufferStream extends BufferStream {
     /**
      * Create a ReadBufferStream
-     * @param {*} buffer
-     * @param {*} littleEndian
+     * @param {BufferStream} buffer
+     * @param {string} littleEndian
      */
     constructor(buffer, littleEndian) {
         super(buffer, littleEndian);

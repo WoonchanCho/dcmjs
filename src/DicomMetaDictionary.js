@@ -2,7 +2,15 @@ import log from "./log.js";
 import { ValueRepresentation } from "./ValueRepresentation.js";
 import dictionary from "./dictionary.js";
 
+/**
+ * Class representing DicomMeta Dictionary
+ */
 class DicomMetaDictionary {
+    /**
+     * Convert a raw tag string into a formatted tag string (e.g, convert 00080008 into (0008,0008))
+     * @param {string} rawTag - 8-character tag string
+     * @returns {string} Formatted tag strimg
+     */
     static punctuateTag(rawTag) {
         if (rawTag.indexOf(",") !== -1) {
             return rawTag;
@@ -13,6 +21,11 @@ class DicomMetaDictionary {
         }
     }
 
+    /**
+     * Convert a formatted tag string into raw tag string (e.g, convert (0008,0008) into 00080008)
+     * @param {string} rawTag - 8-character tag string
+     * @returns {string} 8-character tag string
+     */
     static unpunctuateTag(tag) {
         if (tag.indexOf(",") === -1) {
             return tag;
@@ -23,6 +36,10 @@ class DicomMetaDictionary {
     // fixes some common errors in VRs
     // TODO: if this gets longer it could go in ValueRepresentation.js
     // or in a dedicated class
+    /**
+     * Clean dataset
+     * @param {Object} dataset DICOM JSON Model dataset object
+     */
     static cleanDataset(dataset) {
         const cleanedDataset = {};
         Object.keys(dataset).forEach(tag => {
@@ -50,9 +67,11 @@ class DicomMetaDictionary {
         return cleanedDataset;
     }
 
-    // unlike naturalizeDataset, this only
-    // changes the names of the member variables
-    // but leaves the values intact
+    /**
+     * Unlike naturalizeDataset, this only changes the names of the member variables but leaves the values intact
+     * @param {Object} dataset DICOM JSON Model dataset object
+     * @returns {Object} Named dataset
+     */
     static namifyDataset(dataset) {
         var namedDataset = {};
         Object.keys(dataset).forEach(tag => {
@@ -77,11 +96,14 @@ class DicomMetaDictionary {
         return namedDataset;
     }
 
-    // converts from DICOM JSON Model dataset
-    // to a natural dataset
-    // - sequences become lists
-    // - single element lists are replaced by their first element
-    // - object member names are dictionary, not group/element tag
+    /**
+     * Convert from DICOM JSON Model dataset to a natural dataset
+     * - sequences become lists
+     * - single element lists are replaced by their first element
+     * - object member names are dictionary, not group/element tag
+     * @param {Object} dataset Raw DICOM JSON object
+     * @returns {Object} Natural dataset
+     */
     static naturalizeDataset(dataset) {
         const naturalDataset = {
             _vrMap: {}
@@ -162,6 +184,11 @@ class DicomMetaDictionary {
         return value;
     }
 
+    /**
+     * Convert from a natural dataset to a DICOM JSON Model dataset
+     * @param {Object} dataset - Natural dataset
+     * @returns {Object} Raw DICOM JSON object
+     */
     static denaturalizeDataset(dataset) {
         var unnaturalDataset = {};
         Object.keys(dataset).forEach(naturalName => {
@@ -247,6 +274,10 @@ class DicomMetaDictionary {
         return unnaturalDataset;
     }
 
+    /**
+     * Randomly create UID
+     * @returns {string} Randomly created UID that begins with "2.25."
+     */
     static uid() {
         let uid = "2.25." + Math.floor(1 + Math.random() * 9);
         for (let index = 0; index < 38; index++) {
@@ -255,7 +286,10 @@ class DicomMetaDictionary {
         return uid;
     }
 
-    // date and time in UTC
+    /**
+     * Return UTC Date string (yyyyMMdd)
+     * @returns {string} yyyyMMdd
+     */
     static date() {
         let now = new Date();
         return now
@@ -264,6 +298,10 @@ class DicomMetaDictionary {
             .slice(0, 8);
     }
 
+    /**
+     * Return UTC Time string (HHmmss)
+     * @returns {string} HHmmss
+     */
     static time() {
         let now = new Date();
         return now
@@ -272,12 +310,19 @@ class DicomMetaDictionary {
             .slice(11, 17);
     }
 
+    /**
+     * Return UTC DateTime string (yyyyMMddHHmmss.SSS)
+     * @returns {string} yyyyMMddHHmmss.SSS
+     */
     static dateTime() {
         // "2017-07-07T16:09:18.079Z" -> "20170707160918.079"
         let now = new Date();
         return now.toISOString().replace(/[:\-TZ]/g, "");
     }
 
+    /**
+     * Generate Named map
+     */
     static _generateNameMap() {
         DicomMetaDictionary.nameMap = {};
         Object.keys(DicomMetaDictionary.dictionary).forEach(tag => {
@@ -288,6 +333,9 @@ class DicomMetaDictionary {
         });
     }
 
+    /**
+     * Generate UID map
+     */
     static _generateUIDMap() {
         DicomMetaDictionary.sopClassUIDsByName = {};
         Object.keys(DicomMetaDictionary.sopClassNamesByUID).forEach(uid => {

@@ -2,14 +2,25 @@ import log from "./log.js";
 import { DicomMetaDictionary } from "./DicomMetaDictionary.js";
 import { DerivedImage } from "./derivations/index.js";
 
+/**
+ * Parent (abstract) class for normalization
+ */
 class Normalizer {
+    /**
+     * Create Normaizer object
+     * @param {any[]} datasets
+     */
     constructor(datasets) {
         this.datasets = datasets; // one or more dicom-like object instances
         this.dataset = undefined; // a normalized multiframe dicom object instance
     }
 
+    /**
+     * return sopClassUID if all exist and match, otherwise undefined
+     * @param {any[]} datasets
+     * @returns {string|undefined} SOP Class UID
+     */
     static consistentSOPClassUIDs(datasets) {
-        // return sopClassUID if all exist and match, otherwise undefined
         let sopClassUID;
         datasets.forEach(function(dataset) {
             if (!dataset.SOPClassUID) {
@@ -30,6 +41,11 @@ class Normalizer {
         return sopClassUID;
     }
 
+    /**
+     * Retrieve a Normalzer class matched with SOP class UID
+     * @param {string} sopClassUID
+     * @returns {Normalizer|undefined} Normalizer decendant class or undefined
+     */
     static normalizerForSOPClassUID(sopClassUID) {
         sopClassUID = sopClassUID.replace(/[^0-9.]/g, ""); // TODO: clean all VRs as part of normalizing
         let toUID = DicomMetaDictionary.sopClassUIDsByName;
@@ -56,6 +72,11 @@ class Normalizer {
         return sopClassUIDMap[sopClassUID];
     }
 
+    /**
+     * Check if the SOP Class UID given is a muliframe type
+     * @param {string} sopClassUID
+     * @returns {boolean} True if the SOP Class UID is a multiframe type
+     */
     static isMultiframeSOPClassUID(sopClassUID) {
         const toUID = DicomMetaDictionary.sopClassUIDsByName;
         const multiframeSOPClasses = [
@@ -72,15 +93,29 @@ class Normalizer {
         return multiframeSOPClasses.indexOf(sopClassUID) !== -1;
     }
 
+    /**
+     * Check if the dataset has multiframe type SOP Class UID
+     * @param {Object} dataset
+     * @returns {boolean} True if the dataset has the SOP Class UID which is a multiframe type
+     */
     static isMultiframeDataset(ds = this.dataset) {
         const sopClassUID = ds.SOPClassUID.replace(/[^0-9.]/g, ""); // TODO: clean all VRs as part of normalizing
         return Normalizer.isMultiframeSOPClassUID(sopClassUID);
     }
 
+    /**
+     * normalize will be implemented in the child classes
+     * @returns {string} No normalization defined
+     */
     normalize() {
         return "No normalization defined";
     }
 
+    /**
+     * Normalize the given datasets
+     * @param {Object[]} datasets
+     * @returns {Object} Normalized dataset
+     */
     static normalizeToDataset(datasets) {
         let sopClassUID = Normalizer.consistentSOPClassUIDs(datasets);
         let normalizerClass = Normalizer.normalizerForSOPClassUID(sopClassUID);

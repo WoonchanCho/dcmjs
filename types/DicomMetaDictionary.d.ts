@@ -1,18 +1,73 @@
+/**
+ * Class representing DicomMeta Dictionary
+ */
 export class DicomMetaDictionary {
-    static punctuateTag(rawTag: any): any;
-    static unpunctuateTag(tag: any): any;
+    /**
+     * Convert a raw tag string into a formatted tag string (e.g, convert 00080008 into (0008,0008))
+     * @param {string} rawTag - 8-character tag string
+     * @returns {string} Formatted tag strimg
+     */
+    static punctuateTag(rawTag: string): string;
+    /**
+     * Convert a formatted tag string into raw tag string (e.g, convert (0008,0008) into 00080008)
+     * @param {string} rawTag - 8-character tag string
+     * @returns {string} 8-character tag string
+     */
+    static unpunctuateTag(tag: any): string;
+    /**
+     * Clean dataset
+     * @param {Object} dataset DICOM JSON Model dataset object
+     */
     static cleanDataset(dataset: any): {};
-    static namifyDataset(dataset: any): {};
-    static naturalizeDataset(dataset: any): {
-        _vrMap: {};
-    };
+    /**
+     * Unlike naturalizeDataset, this only changes the names of the member variables but leaves the values intact
+     * @param {Object} dataset DICOM JSON Model dataset object
+     * @returns {Object} Named dataset
+     */
+    static namifyDataset(dataset: any): any;
+    /**
+     * Convert from DICOM JSON Model dataset to a natural dataset
+     * - sequences become lists
+     * - single element lists are replaced by their first element
+     * - object member names are dictionary, not group/element tag
+     * @param {Object} dataset Raw DICOM JSON object
+     * @returns {Object} Natural dataset
+     */
+    static naturalizeDataset(dataset: any): any;
     static denaturalizeValue(naturalValue: any): any;
-    static denaturalizeDataset(dataset: any): {};
+    /**
+     * Convert from a natural dataset to a DICOM JSON Model dataset
+     * @param {Object} dataset - Natural dataset
+     * @returns {Object} Raw DICOM JSON object
+     */
+    static denaturalizeDataset(dataset: any): any;
+    /**
+     * Randomly create UID
+     * @returns {string} Randomly created UID that begins with "2.25."
+     */
     static uid(): string;
+    /**
+     * Return UTC Date string (yyyyMMdd)
+     * @returns {string} yyyyMMdd
+     */
     static date(): string;
+    /**
+     * Return UTC Time string (HHmmss)
+     * @returns {string} HHmmss
+     */
     static time(): string;
+    /**
+     * Return UTC DateTime string (yyyyMMddHHmmss.SSS)
+     * @returns {string} yyyyMMddHHmmss.SSS
+     */
     static dateTime(): string;
+    /**
+     * Generate Named map
+     */
     static _generateNameMap(): void;
+    /**
+     * Generate UID map
+     */
     static _generateUIDMap(): void;
 }
 export namespace DicomMetaDictionary {
