@@ -1,6 +1,11 @@
 import { DicomMetaDictionary } from "./DicomMetaDictionary.js";
 import { DicomDict } from "./DicomDict.js";
 
+/**
+ * Convert from a naturalized dataset to a raw JSON object with DICOM JSON Model dataset and its meta information
+ * @param {Object} dataset Naturalized dataset
+ * @returns {Object} raw JSON object with DICOM JSON Model dataset and its meta information
+ */
 function datasetToDict(dataset) {
     const fileMetaInformationVersionArray = new Uint8Array(2);
     fileMetaInformationVersionArray[1] = 1;
@@ -30,10 +35,20 @@ function datasetToDict(dataset) {
     return dicomDict;
 }
 
+/**
+ * Construct a Buffer object using a naturalized dataset
+ * @param {Object} dataset - Naturalized dataset
+ * @returns {Buffer} Buffer object
+ */
 function datasetToBuffer(dataset) {
     return Buffer.from(datasetToDict(dataset).write());
 }
 
+/**
+ * Construct a Blob object using a naturalized dataset
+ * @param {Object} dataset - Naturalized dataset
+ * @returns {Blob} Blob object
+ */
 function datasetToBlob(dataset) {
     const buffer = datasetToBuffer(dataset);
     return new Blob([buffer], { type: "application/dicom" });

@@ -1,3 +1,13 @@
+/**
+ * JavaScript DICOMweb REST API for browser use.
+ * Design:
+ * * map rest api to high-level code with modern conventions
+ * * ES6: classes, arrow functions, let...
+ * * promises
+ * * json converted to objects
+ *
+ * examples: see tests() method below.
+ */
 export class DICOMWEB {
     static responseType(endpoint: any): any;
     static endpointService(endpoint: any): any;

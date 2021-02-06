@@ -69,7 +69,7 @@ export class Tag {
     /**
      * Write a tag to buffer
      * @param {WriteBufferStream} stream - Buffer to write
-     * @param {string} vrType 2-character VR type string
+     * @param {string} vrType 2-character VR code
      * @param {any[]} values - Array of tag values
      * @param {string} syntax - Transfer syntax
      * @param {Object} writeOptions

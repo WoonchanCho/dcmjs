@@ -235,6 +235,10 @@ var tagNamesToEmpty = [
     "DataSetTrailingPadding"
 ];
 
+/**
+ * Clean Tags
+ * @param {*} dict
+ */
 export function cleanTags(dict) {
     tagNamesToEmpty.forEach(function(tag) {
         var tagInfo = DicomMetaDictionary.nameMap[tag];

@@ -26,18 +26,18 @@ export class DicomMetaDictionary {
      */
     static namifyDataset(dataset: any): any;
     /**
-     * Convert from DICOM JSON Model dataset to a natural dataset
+     * Convert from DICOM JSON Model dataset to a naturalized dataset
      * - sequences become lists
      * - single element lists are replaced by their first element
      * - object member names are dictionary, not group/element tag
      * @param {Object} dataset Raw DICOM JSON object
-     * @returns {Object} Natural dataset
+     * @returns {Object} Naturalized dataset
      */
     static naturalizeDataset(dataset: any): any;
     static denaturalizeValue(naturalValue: any): any;
     /**
-     * Convert from a natural dataset to a DICOM JSON Model dataset
-     * @param {Object} dataset - Natural dataset
+     * Convert from a naturalized dataset to a DICOM JSON Model dataset
+     * @param {Object} dataset - Naturalized dataset
      * @returns {Object} Raw DICOM JSON object
      */
     static denaturalizeDataset(dataset: any): any;

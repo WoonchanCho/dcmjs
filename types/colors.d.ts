@@ -7,7 +7,7 @@ export default Colors;
  * XYZ is CIEXYZ convention
  * TODO: needs a test suite
  * TODO: only dicomlab2RGB tested on real data
-*/
+ */
 export class Colors {
     static d65WhitePointXYZ(): number[];
     static dicomlab2RGB(dicomlab: any): number[];

@@ -1,19 +1,16 @@
 import log from "./log.js";
 
+/**
+ * JavaScript DICOMweb REST API for browser use.
+ * Design:
+ * * map rest api to high-level code with modern conventions
+ * * ES6: classes, arrow functions, let...
+ * * promises
+ * * json converted to objects
+ *
+ * examples: see tests() method below.
+ */
 class DICOMWEB {
-    /*
-    JavaScript DICOMweb REST API for browser use.
-
-    Design:
-    * map rest api to high-level code with modern conventions
-    ** ES6: classes, arrow functions, let...
-    ** promises
-    ** json converted to objects
-
-   examples: see tests() method below.
-
-  */
-
     constructor(options = {}) {
         this.rootURL = options.rootURL;
         this.progressCallback = options.progressCallback;
